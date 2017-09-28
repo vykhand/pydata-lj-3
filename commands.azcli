@@ -1,0 +1,9 @@
+az appservice plan create --name pydata3plan -g pydata3 --is-linux --sku B1 --location westeurope
+
+az webapp create --name pydata3app -g pydata3 -p pydata3plan -i vykhand/pydata3
+
+az webapp config appsettings set --resource-group pydata3 --name pydata3app --settings WEBSITES_PORT=8000
+
+az webapp restart --name pydata3app -g pydata3
+
+az webapp delete --name pydata3app -g pydata3
