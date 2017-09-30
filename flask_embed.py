@@ -1,4 +1,4 @@
-import os
+import os, sys
 import logging
 from flask import Flask, render_template
 
@@ -17,8 +17,8 @@ log = logging.getLogger()
 app = Flask(__name__)
 
 if "SERVER_ADDRESS" not in os.environ:
-    log.error("SERVER_ADDRESS environment variable is not set. Setting to 0.0.0.0")
-    server.address = "0.0.0.0"
+    log.error("SERVER_ADDRESS environment variable is not set. Setting to 127.0.0.1")
+    server_address = "127.0.0.1"
 else:
     server_address = os.environ["SERVER_ADDRESS"]
 
@@ -54,7 +54,7 @@ def bkapp_page():
 def bk_worker():
     # Can't pass num_procs > 1 in this configuration. If you need to run multiple
     # processes, see e.g. flask_gunicorn_embed.py
-    server = Server({'/bkapp': bkapp},address="0.0.0.0", allow_websocket_origin=["0.0.0.0:8000","localhost:8000","localhost:5006", "0.0.0.0:5006", "pydata3app.azurewebsites.net:8000", "pydata3app.azurewebsites.net:80", "pydata3app.azurewebsites.net:5060"])
+    server = Server({'/bkapp': bkapp},address="0.0.0.0", allow_websocket_origin=["0.0.0.0:8000","localhost:8000","localhost:5006", "0.0.0.0:5006"])
     server.start()
     server.io_loop.start()
 
