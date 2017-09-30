@@ -7,3 +7,5 @@ az webapp config appsettings set --resource-group pydata3 --name pydata3app --se
 az webapp restart --name pydata3app -g pydata3
 
 az webapp delete --name pydata3app -g pydata3
+
+az container create -n pydata3app -g pydata3-grp --image vykhand/pydata3 --port 8000 --ip-address public
